@@ -1,23 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { incrementByAmount, increment, decrement } from './redux/slice/counterSlice';
+import { itemIncrement, itemDecrement } from './redux/slice/itemCounterSlice';
+import DisplayCount from './components/displayCount';
+import DisplayItemCounter from './components/displayItemCounter';
 
 function App() {
+
+  const dispatch = useDispatch()
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div className="body-content">
+      <DisplayCount></DisplayCount>
+      <div>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
         >
-          Learn React
-        </a>
-      </header>
+          Increment
+        </button>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
+
+        <button
+          aria-label="direct value"
+          onClick={() => dispatch(incrementByAmount(20))}
+        >
+          Direct value 20
+        </button>
+
+        <hr />
+        <h2>Item Counter</h2>
+        <DisplayItemCounter></DisplayItemCounter>
+        <div>
+          <label>Item Increment</label>
+          <button onClick={() => dispatch(itemIncrement())}> Add Item</button>
+        </div>
+        <div>
+          <label>Item Decrement</label>
+          <button onClick={() => dispatch(itemDecrement())}> Remove Item</button>
+        </div>
+
+      </div>
     </div>
   );
 }
